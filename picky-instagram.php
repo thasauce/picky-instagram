@@ -19,17 +19,21 @@ function picky_instagram_display_page(){ ?>
 		<?php settings_errors(); ?>
 
         <form action="options.php" method="post">  
-            <?php   
+            <?php
             	settings_fields('picky_instagram_options');   
             	do_settings_sections('picky_instagram_options');   
-            ?>  
+            ?>
               
 			<?php submit_button(); ?> 
         </form> 
     </div>
 <?php }
 
-function picky_instagram_magic() { ?>
+function picky_instagram_magic() {
+
+
+
+?>
 	<div class="wrap">
         <div id="icon-themes" class="icon32"></div> 
 
@@ -83,7 +87,7 @@ function picky_instagram_initialize(){
 		'picky_instagram_callback',
 		'picky_instagram_options',
 		'picky_instagram_settings_section',
-		array('picky_instagram_searchtype', 'radio', array('Username', 'Hashtag'))
+		array('picky_instagram_searchtype', 'radio', array('Tag', 'User'))
 	);
 
 	add_settings_field(
