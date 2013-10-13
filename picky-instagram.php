@@ -54,7 +54,7 @@ function picky_instagram_initialize(){
 		'picky_instagram_callback',
 		'picky_instagram',
 		'picky_instagram_settings_section',
-		array('picky_instagram_userid')
+		array('picky_instagram_userid', 'text')
 	);
 
 	add_settings_field(
@@ -63,7 +63,16 @@ function picky_instagram_initialize(){
 		'picky_instagram_callback',
 		'picky_instagram',
 		'picky_instagram_settings_section',
-		array('picky_instagram_accessid')
+		array('picky_instagram_accessid', 'text')
+	);
+
+	add_settings_field(
+		'picky_instagram_searchtype',
+		'Instagram Search Type',
+		'picky_instagram_callback',
+		'picky_instagram',
+		'picky_instagram_settings_section',
+		array('picky_instagram_searchtype', 'radio', array('Username', 'Hashtag'))
 	);
 
 	add_settings_field(
@@ -72,7 +81,7 @@ function picky_instagram_initialize(){
 		'picky_instagram_callback',
 		'picky_instagram',
 		'picky_instagram_settings_section',
-		array('picky_instagram_searchterm')
+		array('picky_instagram_searchterm', 'text')
 	);
 
 
@@ -85,7 +94,18 @@ function picky_instagram_callback($arg) {
 
 	$value = array_key_exists($arg[0], $pi_options) ? $pi_options[$arg[0]] : '';
 
-	echo '<input type="text" id="' . $arg[0] . '" name="picky_instagram[' . $arg[0] . ']" value="' . $value . '"></input>';
+	switch ($arg[1]) {
+		case 'text':
+			echo '<input type="text" id="' . $arg[0] . '" name="picky_instagram[' . $arg[0] . ']" value="' . $value . '"></input>';
+			break;
+		case 'radio':
+		default:
+			for($i = 0; $i < count($arg[2]); $i++) {
+				$checked = ($value == $i) ? 'checked' : '';
+				echo '<label><input type="radio" name="picky_instagram[' . $arg[0] . ']" value="' . $i . '" ' . $checked . '></input> '. $arg[2][$i] .'</label><br />';
+			}
+			break;
+	}
 }
 
 function picky_instagram_settings_section_description() {
