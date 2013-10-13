@@ -109,5 +109,5 @@ function picky_instagram_callback($arg) {
 }
 
 function picky_instagram_settings_section_description() {
-	echo 'My dick.';
+	echo 'Settings for Picky Instagram so we know what to pull from Instagram!';
 }
