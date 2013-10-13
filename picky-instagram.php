@@ -30,7 +30,20 @@ function picky_instagram_display_page(){ ?>
 <?php }
 
 function picky_instagram_magic() {
+	$pi_options = get_option( 'picky_instagram' );
 
+	$error_mang = false;
+	if($pi_options) {
+		if (!array_key_exists('picky_instagram_userid', $pi_options) ||
+			!array_key_exists('picky_instagram_accessid', $pi_options) ||
+			!array_key_exists('picky_instagram_searchterm', $pi_options) ||
+			strlen($pi_options['picky_instagram_userid']) == 0 ||
+			strlen($pi_options['picky_instagram_accessid']) == 0 ||
+			strlen($pi_options['picky_instagram_searchterm']) == 0 ) {
+
+			$error_mang = true;
+		}
+	}
 
 
 ?>
@@ -38,7 +51,16 @@ function picky_instagram_magic() {
         <div id="icon-themes" class="icon32"></div> 
 
 		<h2>Picky Instagram Magic</h2>
+		<?php if($error_mang): ?>
+		<div class="error">
+			<p>
+				<strong>Error!</strong> It looks like you haven't filled out the <a href="admin.php?page=picky_instagram_options">settings</a> yet.
+			</p>
+		</div>
+		<?php else: ?>
+		<p>Time for magic.</p>
 
+		<?php endif; ?>
 	</div>
 <?php }
 
