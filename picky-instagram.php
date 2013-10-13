@@ -51,22 +51,42 @@ function picky_instagram_initialize(){
 	add_settings_field(
 		'picky_instagram_userid',
 		'Instagram User ID',
-		'picky_instagram_userid_callback',
+		'picky_instagram_callback',
 		'picky_instagram',
-		'picky_instagram_settings_section'
+		'picky_instagram_settings_section',
+		array('picky_instagram_userid')
 	);
+
+	add_settings_field(
+		'picky_instagram_accessid',
+		'Instagram Access ID',
+		'picky_instagram_callback',
+		'picky_instagram',
+		'picky_instagram_settings_section',
+		array('picky_instagram_accessid')
+	);
+
+	add_settings_field(
+		'picky_instagram_searchterm',
+		'Instagram Search Term',
+		'picky_instagram_callback',
+		'picky_instagram',
+		'picky_instagram_settings_section',
+		array('picky_instagram_searchterm')
+	);
+
 
 	register_setting('picky_instagram', 'picky_instagram');
 
 }
 
-function picky_instagram_userid_callback() { 
+function picky_instagram_callback($arg) { 
 	$pi_options = get_option( 'picky_instagram' );
 
-	$value = array_key_exists('picky_instagram_userid', $pi_options) ? $pi_options['picky_instagram_userid'] : '';
-	?>
-	<input type="text" id="picky_instagram_userid" name="picky_instagram[picky_instagram_userid]" value="<?php echo $value; ?>"></input>
-<?php }
+	$value = array_key_exists($arg[0], $pi_options) ? $pi_options[$arg[0]] : '';
+
+	echo '<input type="text" id="' . $arg[0] . '" name="picky_instagram[' . $arg[0] . ']" value="' . $value . '"></input>';
+}
 
 function picky_instagram_settings_section_description() {
 	echo 'My dick.';
